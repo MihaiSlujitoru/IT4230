@@ -1,0 +1,41 @@
+	body {
+		background-color: #f1f1f1;
+	}
+
+	.header{
+		background-color: #cccccc;
+	}
+
+	.header .row {
+		margin: 20px;
+	}
+
+
+	.books .container {
+		padding: 0px 35px;
+		margin-top: 35px;
+		margin-bottom: 35px;
+
+	}
+	.books .container .row {
+		margin-top: 35px;
+		margin-bottom: 35px;
+		background-color: #ffffff;
+	}
+
+	.books .container .row:last-child {
+		border-bottom: 0;
+	}
+
+	.books .container .row div[class^='col-'] {
+		padding-top: 15px;
+		padding-bottom: 15px;
+	} 
+
+
+
+	img {
+		max-width: 100%;
+		height: auto;
+		display: block;
+	}

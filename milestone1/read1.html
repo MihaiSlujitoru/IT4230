@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Mihai Slujitoru - Module 1</title>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+
+<style>
+	body {
+		background-color: #f1f1f1;
+	}
+
+	.header{
+		background-color: #cccccc;
+	}
+
+	.books .container {
+		padding: 0px 35px;
+		margin-top: 35px;
+		margin-bottom: 35px;
+
+	}
+	.books .container .row {
+		margin-top: 35px;
+		margin-bottom: 35px;
+		background-color: #ffffff;
+	}
+
+	.books .container .row:last-child {
+		border-bottom: 0;
+	}
+
+	.books .container .row div[class^='col-'] {
+		padding-top: 15px;
+		padding-bottom: 15px;
+	} 
+
+	img {
+		max-width: 100%;
+		height: auto;
+		display: block;
+	}
+</style>
+
+</head>
+<body>
+
+<div class="header">
+	<div class="container">
+		<div class="row col-xs-12">
+			<h1 class="text-center">IT-Ebooks Search results</h1>
+		</div>
+	</div>
+</div>
+
+<div class="books">
+	
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script>
+
+
+
+	$(document).ready(function(){
+
+
+
+		$.getJSON("https://it-ebooks-api.info/v1/search/modern%20web", function(json) {
+
+			var container = $('<div class="container-books container"></div');
+			num = json.Books.length;
+			for(i=0; i < num;i++ ) {
+				container.append('<div class="row"><div class="col-xs-12 col-md-3"><img src="' + json.Books[i].Image  +  '"></div><div class="col-xs-12 col-md-9">' + '<h1>' + json.Books[i].Title +'</h1>' + '<h4>' +json.Books[i].SubTitle + '</h4>' + '<p>' + json.Books[i].Description +'</p></div></div>');
+			}
+			$('.books').html(container);
+
+
+			
+
+        });
+
+	});
+
+</script>
+</body>
+</html>

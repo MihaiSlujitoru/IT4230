@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Mihai Slujitoru</title>
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+	<!-- Font Awesome -->
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">	
+	<!--CSS-->
+	<link rel="stylesheet" href="https://www.mihaislujitoru.com/it4203/milestone5/css/style.css">
+
+</head>
+<body>
+
+<div class="header">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-md-6">
+				<h1>Find a movie!</h1>	
+			</div><!--col-->
+			<div class="col-xs-12 col-md-6 search-row">
+				<form class="navbar-form navbar-right" role="search" style="margin-top: 20px; margin-bottom: 10px;">
+					<div class="form-group">
+						<input type="text" id="searchInput" class="searchTerm form-control" placeholder="Search">
+					</div>
+					<button type="submit" class="btn btn-primary" id="search">Submit</button>
+				</form><!--forms-->
+			</div><!--col-->
+		</div><!--row-->
+		<div class="row row-filter">
+			<span class="btn btn-primary" id="popular">Popular Movies</span> <span class="btn btn-primary" id="upcoming">Upcoming Movies</span> <span class="btn btn-primary" id="topRated">Top Rated Movies</span>
+		</div>
+	</div><!--container-->
+</div><!--header-->
+
+<div class="movies">
+	<div class="container-movies container" id="search-movies">
+
+	</div>
+
+	<div class="container-pagination container" id="movie-pagination" style="display: none;">
+		<div class="row">
+			<div class="col-xs-12">
+				<nav aria-label="Page navigation pagination">
+					<ul class="pagination" id="pagination">
+						<li class="page-item" id="page1"><span class="page-link">1</span></li>
+						<li class="page-item" id="page2"><span class="page-link">2</span></li>
+						<li class="page-item" id="page3"><span class="page-link">3</span></li>
+					</ul>
+				</nav><!--nav-->
+			</div><!--col-->
+		</div><!--row-->			
+	</div><!--container-->	
+
+	<div class="container-details container" id="movie-details">
+		
+	</div>
+</div><!--movies-->
+
+<div class="modal fade person-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content" id="modal-content">
+
+		</div>
+	</div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
+<script src="https://www.mihaislujitoru.com/it4203/milestone5/js/main.js"></script>
+
+
+<script type="text/template" id="myMovieSearch">
+	<h2>Results</h2>
+		<ul class="row-display">
+			<li>Display: </li>
+			<li class="list"><i class="fa fa-list" aria-hidden="true"></i> - List</li>
+			<li class="grid"><i class="fa fa-th" aria-hidden="true"></i> - Grid</li>
+		</ul>
+	<div class="row row-movies">
+	{{#results}}
+	<div class="col-xs-6 col-md-3 wrap-movie">
+		<img class='movie image image-center' id='{{id}}'  src='https://image.tmdb.org/t/p/w185/{{poster_path}}' alt='{{title}}'>
+	</div>
+	{{/results}}
+	</div>	
+</script>
+
+<script type="text/template" id="myMovieDetail">
+		<h2>Movie Details</h2>
+		<div class='row'>
+		<div class='col-xs-12 col-md-3 cover'><img class='movie' src='https://image.tmdb.org/t/p/w185/{{poster_path}}'/></div>
+		<div class='col-xs-12 col-md-9 info'>
+			<p class="title"><strong>Title:</strong>: {{title}}</p>
+			<p class="tagline"><strong>Tagline:</strong>: {{tagline}}</p>
+			<div class="genres">
+				<h4><strong>Genres</strong></h4>
+				<p>
+					{{#genres}}
+					<span> - {{name}}</span> 
+					{{/genres}}
+				</p>
+			</div>
+			<p class="homepage"><strong>URL:</strong>: <a href="{{homepage}}" target="_blank">{{homepage}}</a></p>
+			<p class="release"><strong>Release Date:</strong>: {{release_date}}</p>
+			<p class="overview"><strong>Overview:</strong>: {{overview}}</p>
+			<p class="lang"><strong>Language:</strong>: {{original_language}}</p>
+			<p class="revenue"><strong>Revenue:</strong>: $ {{revenue}}</p>
+			<div class="cast">
+				<h4><strong>Cast Members</strong></h4>
+				{{#credits}}
+				<ul>
+				{{#cast}}
+					<li>{{character}}: <a href="#" onclick='return false;'  data-toggle="modal" data-target=".person-modal" id="{{id}}" class="actorlink">{{name}}</a></li>
+				{{/cast}}
+				</ul>
+				{{/credits}}				
+			</div><!--cast-->
+		</div>
+		</div>
+</script>
+
+<script type="text/template" id="personDetail">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<h4 class="modal-title" id="gridSystemModalLabel">{{name}}</h4>
+	</div>
+	<div class="modal-body">
+		<div class='row'>
+		<div class='col-xs-12 col-md-3 cover'><img class='movie' src='https://image.tmdb.org/t/p/w185/{{profile_path}}'/></div>
+		<div class='col-xs-12 col-md-9 info'>				
+			<p><strong>Birthday</strong>: {{birthday}} - {{deathday}}</p>
+			<p><strong>Place of Birth</strong>: {{place_of_birth}}</p>
+			<p><strong>Biography</strong>: {{biography}}</p>
+		</div>
+		</div>
+	</div>
+</script>
+
+</body>
+</html>

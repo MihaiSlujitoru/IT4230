@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Mihai Slujitoru</title>
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+	<!--CSS-->
+	<link rel="stylesheet" href="https://www.mihaislujitoru.com/it4203/milestone3/css/style.css">
+
+</head>
+<body>
+
+<div class="header">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-md-6">
+				<h1>Milestone 3</h1>	
+			</div><!--col-->
+			<div class="col-xs-12 col-md-6 search-row">
+				<form class="navbar-form navbar-right" role="search" style="margin-top: 20px; margin-bottom: 10px;" onsubmit="return false;">
+					<div class="form-group">
+						<input type="text" id="searchInput" class="searchTerm form-control" placeholder="Search">
+					</div>
+					<button type="submit" class="btn btn-primary" id="search">Submit</button>
+				</form><!--forms-->
+			</div><!--col-->
+		</div><!--row-->
+	</div><!--container-->
+</div><!--header-->
+
+<div class="books">
+
+	<div class="container-books container">
+		<h2>Mihai's Books</h2>
+		<div class="mybooks row" id="my-books"></div>
+	</div><!--container-books-->
+
+	<div class="container-books container " >
+		<h2>Search Results</h2>
+		<div id="search-books" class="row"></div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<nav aria-label="Page navigation">
+					<ul class="pagination">
+						<li id="page1"><a href="#">1</a></li>
+						<li id="page2"><a href="#">2</a></li>
+						<li id="page3"><a href="#">3</a></li>
+					</ul>
+				</nav><!--nav-->
+			</div><!--col-->
+		</div><!--row-->		
+	</div><!--container-->
+
+	<div class="container container-details">
+		<h2>Book Details</h2>
+		<div id="book-details"></div>
+	</div>
+</div><!--books-->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://www.mihaislujitoru.com/it4203/milestone3/js/main.js"></script>
+</body>
+</html>

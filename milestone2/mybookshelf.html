@@ -1,0 +1,146 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Mihai Slujitoru</title>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+
+<style>
+	body {
+		background-color: #f1f1f1;
+	}
+
+	.header{
+		background-color: #cccccc;
+	}
+
+	.header .row {
+		margin: 20px;
+	}
+
+
+	.books .container {
+		padding: 0px 35px;
+		margin-top: 35px;
+		margin-bottom: 35px;
+
+	}
+	.books .container .row {
+		margin-top: 35px;
+		margin-bottom: 35px;
+		background-color: #ffffff;
+	}
+
+	.books .container .row:last-child {
+		border-bottom: 0;
+	}
+
+	.books .container .row div[class^='col-'] {
+		padding-top: 15px;
+		padding-bottom: 15px;
+	} 
+
+
+
+	img {
+		max-width: 100%;
+		height: auto;
+		display: block;
+	}
+
+
+</style>
+
+</head>
+<body>
+
+<div class="header">
+	<div class="container">
+		<div class="row col-xs-12">
+			<h1 class="text-center">My Book Shelf</h1>
+		</div>
+	</div>
+</div>
+
+<div class="books">
+
+	<div class="container-books container" id="container-books">
+
+
+	</div>
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script>
+$(function(){
+    $(window).load(function() {
+
+      var servicePoint2 = "https://www.googleapis.com/books/v1/users/103510794567502364870/bookshelves/0/volumes";
+
+      $.getJSON(servicePoint2, function (json2) {
+
+
+		var resultHTML="";
+		for (i in json2.items)
+		{
+			var bookTitle=json2.items[i].volumeInfo.title;
+			var bookAuthor=json2.items[i].volumeInfo.authors;
+			var bookPublisher=json2.items[i].volumeInfo.publisher;
+		  	var bookPublisherDate=json2.items[i].volumeInfo.publishedDate;
+			var bookDescription=json2.items[i].volumeInfo.description;
+			var bookISBN10=json2.items[i].volumeInfo.industryIdentifiers[0].identifier;
+			var bookISBN13=json2.items[i].volumeInfo.industryIdentifiers[1].identifier;
+			var bookPages=json2.items[i].volumeInfo.pageCount;
+			var bookCategories=json2.items[i].volumeInfo.categories;
+			var bookRatings=json2.items[i].volumeInfo.averageRating;
+			var bookImage=json2.items[i].volumeInfo.imageLinks.smallThumbnail;
+			var bookInfoLink=json2.items[i].volumeInfo.infoLink;
+			var bookID=json2.items[i].id;
+
+
+			resultHTML+="<div class='row'>";
+				resultHTML+="<div class='col-xs-12 col-md-3 cover'>";
+			
+					resultHTML+="<img class='image' src='"+ bookImage +"' />";
+			
+				resultHTML+="</div>";
+				
+				resultHTML+="<div class='col-xs-12 col-md-9 info'>";
+
+					resultHTML+="<h2><a style='color:black;' href='bookinfo.html?id="+bookID+"'>"+bookTitle+"</a></h2>";
+					resultHTML+="<p><a class='link' href='" + bookInfoLink +"'>"+bookInfoLink+"</a></p>"
+					resultHTML+="<p>"+ bookAuthor+"</p><br>";
+					resultHTML+="<p>Publisher: "+bookPublisher+"</p><br>";
+					resultHTML+="<p>Date: "+ bookPublisherDate+"</p><br>"
+					resultHTML+="<p>"+bookDescription+"</p><br>";
+					resultHTML+="<p>ISBN10: "+bookISBN10+"</p>";
+					resultHTML+="<p>ISBN13: "+bookISBN13+"</p>";
+			    	resultHTML+="<p> Number of pages: "+bookPages+"</p>";
+					resultHTML+="<p> Ratings: "+bookRatings+"</p>";
+			    	resultHTML+="<p>Categories: "+bookCategories+"</p><br>";
+
+				resultHTML+="</div>";
+			resultHTML+="</div>";
+
+
+		}
+
+	$("#container-books").html(resultHTML);
+		});
+  });
+});
+</script>
+
+</body>
+</html>

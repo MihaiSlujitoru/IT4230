@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>What's That Movie?</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.0/mustache.min.js"></script>
+    <script type="text/javascript" src="movie.js"></script>
+    <link rel="stylesheet" type="text/css" href="movie.css">
+
+    <!---Add moustache templates/scripts-->
+    <script id="nowplayingmovies" type="text/template">
+      <div id="movies-playing">
+      {{#results}}
+      <img class="movie-image" src="http://image.tmdb.org/t/p/w92/{{poster_path}}" alt="{{title}}">
+      {{/results}}
+      </div>
+    </script>
+
+    <script id="results" type="text/template">
+      {{#results}}
+      </br>
+    		<div class="movie-item" id="{{id}}">
+    		   <h4 style="margin-left: 10px;">{{title}}</h4>
+    		   <img class="movie-image" style = "margin-left: 10px; padding-top: 10px;" src="http://image.tmdb.org/t/p/w185/{{poster_path}}" alt="{{title}}">
+		    </div>
+    	{{/results}}
+      </script>
+
+    <script id="moviedetails" type="text/template">
+      <div><input type="button" id="btnHide" value="Close" /></div>
+      <h3 class="title"><strong>{{title}}</strong></h3>
+      <img class="poster" style="float: left; margin-left: 10px; margin-top: 10px;" src="http://image.tmdb.org/t/p/w185/{{poster_path}}" alt="{{title}}">
+      </div>
+      <div class="details">
+      <br/>
+      <p class="release"><strong>Release Date:</strong>&nbsp;&nbsp; {{release_date}}</p>
+			<p class="overview"><strong>Overview:</strong>&nbsp;&nbsp; {{overview}}</p>
+			<p class="lang"><strong>Language:</strong>&nbsp;&nbsp; {{original_language}}</p>
+			<p class="revenue"><strong>Revenue:</strong>&nbsp;&nbsp; $ {{revenue}}</p>
+      <div class="cast"><h4 style="padding-bottom: 10px;"><strong>Cast Members</strong></h4>
+      {{#credits}}
+      {{#cast}}
+      <div actorid="{{id}}">{{character}}:&nbsp;&nbsp;<a href="https://www.themoviedb.org/person/{{id}}" target="_blank" class="actorlink"><p>{{name}}</a><br/>
+      {{/cast}}
+      {{/credits}}
+      </div>
+      </div>
+    </div>
+</script>
+</head>
+
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" style="color: rgb(18, 123, 246)" href="#">What's That Movie?</a>
+            </div>
+            <div class="collapse navbar-collapse" id="defaultNavbar1">
+      	    <ul class="nav navbar-nav view-selector">
+              <li><a>Views:</a></li>
+      		    <li><button type="button" class="navbar-btn btn" id="btnList">List</button></li>
+      		    <li><button type="button" class="navbar-btn btn" id="btnGrid">Grid</button></li>
+            </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <form class="navbar-form navbar-right" role="search" onsubmit="return false;">
+          <div class="form-group">
+            <input type="text" id="keywordSearch" onsubmit=""  placeholder="Enter keyword" class="form-control">
+          <button type="button" id="searchButton" class="btn btn-default" onclick="document.documentElement.scrollTop = 0" value="Search">Search</button>
+        </div>
+      </form>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <div class="nowplaying"></div>
+
+  <br/>
+
+  <div id="movie-search-container">
+    <div class="movie-search-header">
+        <p>Movie Search Results
+      <ul class="navbar-nav nav options">
+        <li><button type="button" id="viewPopular">Popular Movies</button></li>
+        <li><button type="button" id="viewUpcoming">Upcoming Movies</button></li>
+      </ul>
+    </p>
+    <br />
+    </div>
+    <div class="movie-search-list"></div>
+  </div>
+
+  <div class="modal"></div>
+
+</body>
+</html>

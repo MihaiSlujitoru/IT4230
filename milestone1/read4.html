@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Mihai Slujitoru - Module 1</title>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+
+<style>
+	body {
+		background-color: #f1f1f1;
+	}
+
+	.header{
+		background-color: #cccccc;
+	}
+
+	.books .container {
+		padding: 0px 35px;
+		margin-top: 35px;
+		margin-bottom: 35px;
+
+	}
+	.books .container .row {
+		margin-top: 35px;
+		margin-bottom: 35px;
+		background-color: #ffffff;
+	}
+
+	.books .container .row:last-child {
+		border-bottom: 0;
+	}
+
+	.books .container .row div[class^='col-'] {
+		padding-top: 15px;
+		padding-bottom: 15px;
+	} 
+
+	img {
+		max-width: 100%;
+		height: auto;
+		display: block;
+	}
+</style>
+
+</head>
+<body>
+
+<div class="header">
+	<div class="container">
+		<div class="row col-xs-12">
+			<h1 class="text-center">IT-Ebooks</h1>
+		</div>
+	</div>
+</div>
+
+<div class="books">
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script>
+
+
+
+	$(document).ready(function(){
+
+
+
+		$.getJSON("https://www.googleapis.com/books/v1/volumes?q=modern%20web", function(json) {
+
+			var container = $('<div class="container-books container"></div');
+			num = json.length;
+
+			var itemDescription = [];
+			var itemCover = [];
+
+
+			for(i in json.items ) {
+
+				itemCover.push('<img class="image" src=" ' + json.items[i].volumeInfo.imageLinks.thumbnail + '">');
+
+				itemDescription.push(
+					'<h1>'+ json.items[i].volumeInfo.title + '</h1>' + 
+					'<h3>' + json.items[i].volumeInfo.subtitle + '</h3>' +
+					'<p> Description: ' + json.items[i].volumeInfo.description + '</p>' +
+					'<p> Authors: ' + json.items[i].volumeInfo.authors + '</p>' +
+					'<p> Published Date: ' + json.items[i].volumeInfo.publishedDate + '</p>' +
+					'<p> Page Count: ' + json.items[i].volumeInfo.pageCount + '</p>' + 
+					'<p><a href="' + json.items[i].selfLink + '">Self Link</a></p>' +
+					'<p class="subtitle"> Other Information' + '</p>' +
+					'<p> Kind: ' + json.items[i].kind + '</p>' +
+					'<p> ID: ' + json.items[i].id + '</p>' +
+					'<p> ETAG: ' + json.items[i].etag + '</p>' +
+					'<p> Industry IdentType1: ' + json.items[i].volumeInfo.industryIdentifiers[0].type + '</p>' +
+					'<p> IndustryIdent1: ' + json.items[i].volumeInfo.industryIdentifiers[0].identifier + '</p>' +
+					'<p> Industry IdentType2: ' + json.items[i].volumeInfo.industryIdentifiers[1].type + '</p>' +
+					'<p> IndustryIdent2: ' + json.items[i].volumeInfo.industryIdentifiers[1].identifier + '</p>' +
+					'<p> ReadingModeText: ' + json.items[i].volumeInfo.readingModes.text + '</p>' +
+					'<p> ReadingModeImage: ' + json.items[i].volumeInfo.readingModes.image + '</p>' +
+					'<p> Print Type: ' + json.items[i].volumeInfo.printType + '</p>' +
+					'<p> Average Rating: ' + json.items[i].volumeInfo.averageRating + '</p>' +
+					'<p> Ratings Count: ' + json.items[i].volumeInfo.ratingsCount + '</p>' +
+					'<p> Maturity Rating: ' + json.items[i].volumeInfo.maturityRating + '</p>' +
+					'<p> Allow Anon Logging: ' + json.items[i].volumeInfo.allowAnonLogging + '</p>' +
+					'<p> Content Version: ' + json.items[i].volumeInfo.contentVersion + '</p>' +
+					'<a href="' + json.items[i].volumeInfo.imageLinks.smallThumbnail + '">Small Thumbnail</a>' + '<a href="' + json.items[i].volumeInfo.imageLinks.thumbnail + '">Thumbnail</a>' +
+					'<p> Language ' + json.items[i].volumeInfo.language + '</p>' +
+					'<a href="' + json.items[i].volumeInfo.previewLink + '">Preview Link</a>' + '<a href="' + json.items[i].volumeInfo.infoLink + '">Info Link</a>' + '<a href="' + json.items[i].volumeInfo.canonicalVolumeLink + '">Canonical Volume Link</a>' +
+					'<p> Sales Info Country: ' + json.items[i].saleInfo.country + '</p>' +
+					'<p> Sales Info Saleability: ' + json.items[i].saleInfo.saleability + '</p>' + 
+					'<p> Sales Info Ebook?: ' + json.items[i].saleInfo.isEbook + '</p>' + 
+					'<p> Access Info Country: ' + json.items[i].accessInfo.country + '</p>' + 
+					'<p> Access Info Viewability: ' + json.items[i].accessInfo.viewability + '</p>' +
+					'<p> Access Info Embeddable: ' + json.items[i].accessInfo.embeddable + '</p>' +
+					'<p> Access Info Publid Domain: ' + json.items[i].accessInfo.publicDomain + '</p>' +
+					'<p> Access Info Text to Speech: ' + json.items[i].accessInfo.textToSpeechPermission + '</p>' +
+					'<p> Access Info EPUB: ' + json.items[i].accessInfo.epub.isAvailable + '</p>' +
+					'<p> Access Info PDF: ' + json.items[i].accessInfo.pdf.isAvailable + '</p>' +
+					'<a href="' + json.items[i].accessInfo.webReaderLink + '">Web Reader Link</a>' +
+					'<p> Access Info Access View Status: ' + json.items[i].accessInfo.accessViewStatus + '</p>' +
+					'<p> Access Info Quote Sharing Allowed: ' + json.items[i].accessInfo.quoteSharingAllowed + '</p>');
+
+				
+				container.append('<div class="row"><div class="col-xs-12 col-md-3">' + itemCover[i]  +  '</div><div class="col-xs-12 col-md-9">' + itemDescription[i] + '</div></div>');
+			}
+			
+			$('.books').html(container);
+
+
+
+        });
+
+	});
+
+</script>
+</body>
+</html>

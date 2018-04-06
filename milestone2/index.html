@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Mihai Slujitoru</title>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+
+<style>
+	body {
+		background-color: #f1f1f1;
+	}
+
+	.header{
+		background-color: #cccccc;
+	}
+
+	.header .row {
+		margin: 20px;
+	}
+
+
+	.books .container {
+		padding: 0px 35px;
+		margin-top: 35px;
+		margin-bottom: 35px;
+
+	}
+	.books .container .row {
+		margin-top: 35px;
+		margin-bottom: 35px;
+		background-color: #ffffff;
+	}
+
+	.books .container .row:last-child {
+		border-bottom: 0;
+	}
+
+	.books .container .row div[class^='col-'] {
+		padding-top: 15px;
+		padding-bottom: 15px;
+	} 
+
+
+
+	img {
+		max-width: 100%;
+		height: auto;
+		display: block;
+	}
+
+
+</style>
+
+</head>
+<body>
+
+<div class="header">
+	<div class="container">
+		<div class="row col-xs-12">
+			<h1 class="text-center">Search <img src="/it4203/milestone2/books-logo.png" alt="" style="margin: 0 auto"></h1>
+		</div>
+		<div class="row col-xs-12">
+			<h5 class="text-center"><a href="/it4203/milestone2/mybookshelf.html">My Book Shelf</a></h5>
+		</div>		
+		<div class="row search-row">
+			<form>
+				<div class="form-group">
+					<input type="text" id="searchInput" class="searchTem form-control" name="q" method="post" placeholder="Search...">
+          		</div>
+          		<div class="text-center"><input type="submit" class="btn btn-primary" value="Search"></div>
+      		</form>
+		</div>		
+	</div>
+</div>
+
+<div class="books">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<h2 class="text-center">Total Results: <span id="total">0</span></h2>
+			</div>
+		</div>			
+	</div>
+	<div class="container-books container" id="container-books">
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<ul class="pager">
+					<li><a href="#" id="prev">Previous</a></li>
+					<li><a href="#" id="next">Next</a></li>
+				</ul>				
+			</div>
+		</div>		
+	</div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script>
+  $(function() {
+
+  		var startIndex = 0;
+
+    	$(".btn").click(function(event) {
+        	event.preventDefault();
+
+        	var increment = "maxResults=10&startIndex=" + startIndex;
+    	    var parameters = "?q="+$("#searchInput").val()+"&" + increment;
+        	var jsonInfo = "https://www.googleapis.com/books/v1/volumes/"+parameters;
+
+        
+        	$.getJSON(jsonInfo, function(json) {
+        		//console.log(json);
+
+				var total=json.totalItems;
+			
+				$("#total").text(total);
+
+				var resultHTML="";
+				
+				for (i in json.items) {
+					var booktitle=json.items[i].volumeInfo.title;
+					var bookid=json.items[i].id;
+					var cover = "";
+					
+					if (json.items[i].volumeInfo.imageLinks != null) {
+						cover=json.items[i].volumeInfo.imageLinks.smallThumbnail;
+					}
+					
+
+					resultHTML+="<div class='row'>";
+					resultHTML+="<div class='col-xs-12 col-md-3 cover'><img src='"+cover+"'/></div>";
+					resultHTML+="<div class='col-xs-12 col-md-9 info'><h2><a href='/it4203/milestone2/book.html?id="+bookid+"'>"+booktitle+"</a></h2></div>";
+					resultHTML+="</div>";
+       	
+				}
+	      		$("#container-books").html(resultHTML);
+			});
+       	
+    	});
+
+
+		$('#prev').click(function(event) {
+			event.preventDefault();
+
+			if(startIndex == 0 ) {
+        		startIndex = 0;
+        	} else {
+        		startIndex -= 10;
+        	}
+
+        	var increment = "maxResults=10&startIndex=" + startIndex;
+    	    var parameters = "?q="+$("#searchInput").val()+"&" + increment;
+        	var jsonInfo = "https://www.googleapis.com/books/v1/volumes/"+parameters;
+
+        
+        	$.getJSON(jsonInfo, function(json) {
+        		//console.log(json);
+
+				var total=json.totalItems;
+			
+				$("#total").text(total);
+
+				var resultHTML="";
+				
+				for (i in json.items) {
+					var booktitle=json.items[i].volumeInfo.title;
+					var bookid=json.items[i].id;
+					var cover = "";
+					
+					if (json.items[i].volumeInfo.imageLinks != null) {
+						cover=json.items[i].volumeInfo.imageLinks.smallThumbnail;
+					}
+					
+
+					resultHTML+="<div class='row'>";
+					resultHTML+="<div class='col-xs-12 col-md-3 cover'><img src='"+cover+"'/></div>";
+					resultHTML+="<div class='col-xs-12 col-md-9 info'><h2><a href='/it4203/milestone2/book.html?id="+bookid+"'>"+booktitle+"</a></h2></div>";
+					resultHTML+="</div>";
+       	
+				}
+				$("#container-books").html(resultHTML);
+
+			});
+       	
+
+		});      	
+
+		$('#next').click(function(event) {
+			event.preventDefault();
+
+        	startIndex += 11;
+
+        	var increment = "maxResults=10&startIndex=" + startIndex;
+    	    var parameters = "?q="+$("#searchInput").val()+"&" + increment;
+        	var jsonInfo = "https://www.googleapis.com/books/v1/volumes/"+parameters;
+
+        
+        	$.getJSON(jsonInfo, function(json) {
+        		//console.log(json);
+
+				var total=json.totalItems;
+			
+				$("#total").text(total);
+
+				var resultHTML="";
+				
+				for (i in json.items) {
+					var booktitle=json.items[i].volumeInfo.title;
+					var bookid=json.items[i].id;
+					var cover = "";
+					
+					if (json.items[i].volumeInfo.imageLinks != null) {
+						cover=json.items[i].volumeInfo.imageLinks.smallThumbnail;
+					}
+					
+
+					resultHTML+="<div class='row'>";
+					resultHTML+="<div class='col-xs-12 col-md-3 cover'><img src='"+cover+"'/></div>";
+					resultHTML+="<div class='col-xs-12 col-md-9 info'><h2><a href='/it4203/milestone2/book.html?id="+bookid+"'>"+booktitle+"</a></h2></div>";
+					resultHTML+="</div>";
+       	
+				}
+	       		$("#container-books").html(resultHTML);
+
+			});
+
+      	
+		});  	
+	
+
+});
+</script>
+</body>
+</html>

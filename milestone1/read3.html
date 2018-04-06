@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Mihai Slujitoru - Module 1</title>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+
+<style>
+	body {
+		background-color: #f1f1f1;
+	}
+
+	.header{
+		background-color: #cccccc;
+	}
+
+	.books .container {
+		padding: 0px 35px;
+		margin-top: 35px;
+		margin-bottom: 35px;
+
+	}
+	.books .container .row {
+		margin-top: 35px;
+		margin-bottom: 35px;
+		background-color: #ffffff;
+	}
+
+	.books .container .row:last-child {
+		border-bottom: 0;
+	}
+
+	.books .container .row div[class^='col-'] {
+		padding-top: 15px;
+		padding-bottom: 15px;
+	} 
+
+	img {
+		max-width: 100%;
+		height: auto;
+		display: block;
+	}
+</style>
+
+</head>
+<body>
+
+<div class="header">
+	<div class="container">
+		<div class="row col-xs-12">
+			<h1 class="text-center">IT-Ebook</h1>
+		</div>
+	</div>
+</div>
+
+<div class="books">
+	<div class="container-books container">
+		<div class="row">
+			<div class="col-xs-12 col-md-3 cover"></div>
+			<div class="col-xs-12 col-md-9 info"></div>
+		</div>
+	</div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script>
+
+
+
+	$(document).ready(function(){
+
+
+
+		$.getJSON("https://www.googleapis.com/books/v1/volumes/Wfan6L9RGgYC", function(json) {
+
+            $('.info').append('<h2>' + json.volumeInfo.title + '</h2>');
+			$('.info').append('<h4>' + json.volumeInfo.subtitle + '</h4>');
+			$('.cover').append("<img class='image' src=" + json.volumeInfo.imageLinks.medium + '>');
+			$('.info').append('<p>' + json.volumeInfo.description + '</p>');
+			$('.info').append('<p> <b>Authors:</b> ' + json.volumeInfo.authors + '</p>');
+			$('.info').append('<h3> Other Information </h3>');
+			$('.info').append('<p> <b>ID:</b> ' + json.id + '</p>');
+			$('.info').append('<p> <b>Kind:</b> ' + json.kind + '</p>');
+			$('.info').append('<p> <b>Etag:</b> ' + json.etag + '</p>');
+			$('.info').append('<p> <b>Self Link</><a href="' + json.selfLink+ '">Link</a></p>');
+			$('.info').append('<p> <b>Publisher:</b> ' + json.volumeInfo.publisher + '</p>');
+			$('.info').append('<p> <b>Published Date:</b> ' + json.volumeInfo.publisedDate+ '</p>');
+			$('.info').append('<p> <b><b>Industry IdentType:</b> ' + json.volumeInfo.industryIdentifiers[0].type + '</p>');
+			$('.info').append('<p> <b>Industry Ident:</b> ' + json.volumeInfo.industryIdentifiers[0].indentifier + '</p>');
+			$('.info').append('<p> <b>Industry IdentType:</b> ' + json.volumeInfo.industryIdentifiers[1].type + '</p>');
+			$('.info').append('<p> <b>Industry Ident:</b> ' + json.volumeInfo.industryIdentifiers[1].indentifier + '</p>');
+			$('.info').append('<p> <b>ReadingModeText:</b> ' + json.volumeInfo.readingModes.text + '</p>');
+			$('.info').append('<p> <b>ReadingModeImage:</b> ' + json.volumeInfo.readingModes.image + '</p>');
+			$('.info').append('<p> <b>PageCount:</b> ' + json.volumeInfo.pageCount + '</p>');
+			$('.info').append('<p> <b>PrintedPageCount:</b> ' + json.volumeInfo.printedPageCount + '</p>');
+			$('.info').append('<p> <b>DimensionsHeight:</b> ' + json.volumeInfo.dimensions.height + '</p>');
+			$('.info').append('<p> <b>DimensionsWidth:</b> ' + json.volumeInfo.dimensions.width + '</p>');
+			$('.info').append('<p> <b>DimensionsThick:</b> ' + json.volumeInfo.dimensions.thickness + '</p>');
+			$('.info').append('<p> <b>PrintType:</b> ' + json.volumeInfo.printType + '</p>');
+			$('.info').append('<p> <b>DimensionsHeight:</b> ' + json.volumeInfo.categories + '</p>');
+			$('.info').append('<p> <b>AverageRating:</b> ' + json.volumeInfo.averageRating + '</p>');
+			$('.info').append('<p> <b>RatingCount:</b> ' + json.volumeInfo.ratingsCount + '</p>');
+			$('.info').append('<p> <b>MaturityRating:</b> ' + json.volumeInfo.maturityRating + '</p>');
+			$('.info').append('<p> <b>AllowAnonLogging:</b> ' + json.volumeInfo.allowAnonLogging + '</p>');
+			$('.info').append('<p> <b>ContentVersion:</b> ' + json.volumeInfo.contentVersion + '</p>');
+			$('.info').append('<p> <b>DimensionsHeight:</b> ' + json.volumeInfo.dimensions.height + '</p>');
+			$('.info').append('<p><a href="' + json.volumeInfo.imageLinks.smallThumbnail+ '">SmallThumbNail</a></p>');
+			$('.info').append('<p><a href="' + json.volumeInfo.imageLinks.small+ '">SmallImage</a></p>');
+			$('.info').append('<p><a href="' + json.volumeInfo.imageLinks.medium+ '">MediumImage</a></p>');
+			$('.info').append('<p><a href="' + json.volumeInfo.imageLinks.large+ '">LargeImage</a></p>');
+			$('.info').append('<p><a href="' + json.volumeInfo.imageLinks.extraLarge+ '">SmallThumbNail</a></p>');
+			$('.info').append('<p> <b>Language</b> ' + json.volumeInfo.language + '</p>');
+			$('.info').append('<p><a href="' + json.volumeInfo.previewLink+ '">PreviewLink</a></p>');
+			$('.info').append('<p> InfoLink ' + json.volumeInfo.infoLink + '</p>');
+			$('.info').append('<p><a href="' + json.volumeInfo.infoLink+ '">InfoLink</a></p>');
+			$('.info').append('<p> <b>CanonicalVolLink</b> ' + json.volumeInfo.canonicalVolumeLink + '</p>');
+			$('.info').append('<a href="' + json.volumeInfo.canonicalVolumeLink+ '">CanonicalVolumeLink</a>');
+			$('.info').append('<p> <b>LayerID</b> ' + json.layerInfo.layers.layerId + '</p>');
+			$('.info').append('<p> <b>VolumeAnnotationVer</b> ' + json.layerInfo.layers.volumeAnnotationsVersion + '</p>');
+			$('.info').append('<p> <b>saleInfoCountry</b> ' + json.saleInfo.country + '</p>');
+			$('.info').append('<p> <b>Saleability</b> ' + json.saleInfo.saleability + '</p>');
+			$('.info').append('<p> <b>IsEbook</b> ' + json.saleInfo.isEbook + '</p>');
+			$('.info').append('<p> <b>ListPriceAmount</b> ' + json.saleInfo.listPrice.amount + '</p>');
+			$('.info').append('<p> <b>ListPriceCC</b> ' + json.saleInfo.listPrice.currencyCode + '</p>');
+			$('.info').append('<p> <b>RetailPriceAmount</b> ' + json.saleInfo.retailPrice.amount + '</p>');
+			$('.info').append('<p> <b>RetailPriceCC</b> ' + json.saleInfo.retailPrice.currencyCode + '</p>');
+			$('.info').append('<p><a href="' + json.saleInfo.buyLink + '">WebReaderLink</a></p>');
+			$('.info').append('<p> <b>FinskyOfferType</b> ' + json.saleInfo.offers.finskyOfferType + '</p>');
+			$('.info').append('<p> <b>Giftable</b> ' + json.saleInfo.offers.giftable + '</p>');
+			$('.info').append('<p> <b>AcessInfoCountry</b> ' + json.accessInfo.country + '</p>');
+			$('.info').append('<p> <b>Viewability</b> ' + json.accessInfo.viewability + '</p>');
+			$('.info').append('<p> <b>Embeddable</b> ' + json.accessInfo.embeddable + '</p>');
+			$('.info').append('<p> <b>Public Domain</b> ' + json.accessInfo.publicDomain + '</p>');
+			$('.info').append('<p> <b>Text to Speech</b> ' + json.accessInfo.textToSpeechPermission + '</p>');
+			$('.info').append('<p> <b>EBUP:</b> ' + json.accessInfo.epub.isAvailable + '</p>');
+			$('.info').append('<p> <b>PDF:</b> ' + json.accessInfo.pdf.isAvailable + '</p>');
+			$('.info').append('<p><a href="' + json.accessInfo.webReaderLink + '">WebReaderLink</a></p>');
+			$('.info').append('<p> <b>Access View Status</b> ' + json.accessInfo.accessViewStatus + '</p>');
+			$('.info').append('<p> <b>Quote Sharing Allowed:</b> ' + json.accessInfo.quoteSharingAllowed + '</p>');
+        });
+
+	});
+
+</script>
+</body>
+</html>
