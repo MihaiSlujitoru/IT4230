@@ -1,4 +1,4 @@
-var key = '07e4757f9a9c98f9849bfee2d8edee55';
+var key = '';
 
 //Search Function
 $("#search").click(function(event) {
